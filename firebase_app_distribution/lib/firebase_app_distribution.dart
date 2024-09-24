@@ -8,3 +8,8 @@ FirebaseAppDistributionPlatform get _platform =>
 Future<void> updateIfNewReleaseAvailable() {
   return _platform.updateIfNewReleaseAvailable();
 }
+
+/// Checks if a new release is available.
+Future<bool> isNewReleaseAvailable() {
+  return _platform.isNewReleaseAvailable();
+}

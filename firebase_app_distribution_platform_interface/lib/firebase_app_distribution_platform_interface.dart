@@ -35,4 +35,7 @@ abstract class FirebaseAppDistributionPlatform extends PlatformInterface {
   /// Check if a new release is available and prompts the user to update
   /// if there is one.
   Future<void> updateIfNewReleaseAvailable();
+
+  /// Checks if a new release is available.
+  Future<bool> isNewReleaseAvailable();
 }

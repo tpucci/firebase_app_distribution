@@ -17,4 +17,11 @@ class FirebaseAppDistributionIOS extends FirebaseAppDistributionPlatform {
   Future<void> updateIfNewReleaseAvailable() async {
     return methodChannel.invokeMethod<void>('updateIfNewReleaseAvailable');
   }
+
+  @override
+  Future<bool> isNewReleaseAvailable() {
+    return methodChannel
+        .invokeMethod<bool>('isNewReleaseAvailable')
+        .then((res) => res ?? false);
+  }
 }

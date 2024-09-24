@@ -13,4 +13,11 @@ class MethodChannelFirebaseAppDistribution
   Future<void> updateIfNewReleaseAvailable() {
     return methodChannel.invokeMethod<void>('updateIfNewReleaseAvailable');
   }
+
+  @override
+  Future<bool> isNewReleaseAvailable() {
+    return methodChannel
+        .invokeMethod<bool>('isNewReleaseAvailable')
+        .then((res) => res ?? false);
+  }
 }

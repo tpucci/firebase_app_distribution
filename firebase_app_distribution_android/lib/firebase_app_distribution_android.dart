@@ -19,4 +19,11 @@ class FirebaseAppDistributionAndroid extends FirebaseAppDistributionPlatform {
   Future<String?> updateIfNewReleaseAvailable() {
     return methodChannel.invokeMethod<String>('updateIfNewReleaseAvailable');
   }
+
+  @override
+  Future<bool> isNewReleaseAvailable() {
+    return methodChannel
+        .invokeMethod<bool>('isNewReleaseAvailable')
+        .then((res) => res ?? false);
+  }
 }
