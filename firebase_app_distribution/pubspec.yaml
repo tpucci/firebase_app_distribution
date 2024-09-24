@@ -1,0 +1,32 @@
+name: firebase_app_distribution
+description: A Flutter plugin to enable testers to sign in and receive in-app updates.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: firebase_app_distribution_android
+      ios:
+        default_package: firebase_app_distribution_ios
+
+dependencies:
+  firebase_app_distribution_android:
+    path: ../firebase_app_distribution_android
+  firebase_app_distribution_ios:
+    path: ../firebase_app_distribution_ios
+  firebase_app_distribution_platform_interface:
+    path: ../firebase_app_distribution_platform_interface
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0
+  plugin_platform_interface: ^2.1.6
+  very_good_analysis: ^6.0.0

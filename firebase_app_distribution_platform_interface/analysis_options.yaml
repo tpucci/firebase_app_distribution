@@ -1,0 +1,8 @@
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
+
+# TODO: Duplicated rules
+linter:
+  rules:
+    sort_pub_dependencies: false
+    lines_longer_than_80_chars: false
+    require_trailing_commas: false

@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: firebase_app_distribution_android,firebase_app_distribution_ios,firebase_app_distribution_platform_interface
+dependency_overrides:
+  firebase_app_distribution_android:
+    path: ../firebase_app_distribution_android
+  firebase_app_distribution_ios:
+    path: ../firebase_app_distribution_ios
+  firebase_app_distribution_platform_interface:
+    path: ../firebase_app_distribution_platform_interface

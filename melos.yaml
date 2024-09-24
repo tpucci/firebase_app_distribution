@@ -1,0 +1,8 @@
+name: shake_gesture
+
+packages:
+  - shake_gesture*
+
+ide:
+  intellij:
+    enabled: false
