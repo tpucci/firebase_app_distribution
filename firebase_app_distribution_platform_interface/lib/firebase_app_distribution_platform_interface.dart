@@ -38,4 +38,15 @@ abstract class FirebaseAppDistributionPlatform extends PlatformInterface {
 
   /// Checks if a new release is available.
   Future<bool> isNewReleaseAvailable();
+
+  /// Checks if tester is signed in.
+  Future<bool> isTesterSignedIn();
+
+  /// Sign in a tester without automatically checking for update.
+  Future<void> signInTester();
+
+  /// Download the new release.
+  /// Returns a stream of download progress if available on the platform,
+  /// else returns -1.
+  Stream<double> downloadUpdate();
 }
