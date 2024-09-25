@@ -1,7 +1,7 @@
-name: shake_gesture
+name: firebase_app_distribution
 
 packages:
-  - shake_gesture*
+  - firebase_app_distribution*
 
 ide:
   intellij:

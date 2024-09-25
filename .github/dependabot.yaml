@@ -6,22 +6,22 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/shake_gesture"
+    directory: "/firebase_app_distribution"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/shake_gesture/example"
+    directory: "/firebase_app_distribution/example"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/shake_gesture_platform_interface"
+    directory: "/firebase_app_distribution_platform_interface"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/shake_gesture_android"
+    directory: "/firebase_app_distribution_android"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/shake_gesture_ios"
+    directory: "/firebase_app_distribution_ios"
     schedule:
       interval: "daily"
