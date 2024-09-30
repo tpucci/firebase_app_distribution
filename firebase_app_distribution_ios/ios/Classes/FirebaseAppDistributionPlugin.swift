@@ -10,33 +10,94 @@ public class FirebaseAppDistributionPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-      AppDistribution.appDistribution().checkForUpdate(completion: { release, error in
-        if error != nil {
-            // Handle error
-            return
-        }
+      switch call.method {
+        case "updateIfNewReleaseAvailable":
+          AppDistribution.appDistribution().checkForUpdate(completion: { release, error in
+            if error != nil {
+                // Handle error
+                return
+            }
 
-        guard let release = release else {
-          return
-        }
+            guard let release = release else {
+              return
+            }
 
-        // Customize your alerts here.
-        let title = "New Version Available"
-        let message = "Version \(release.displayVersion)(\(release.buildVersion)) is available."
-        let uialert = UIAlertController(title: title,message: message, preferredStyle: .alert)
+            let title = "New Version Available"
+            let message = "Version \(release.displayVersion)(\(release.buildVersion)) is available."
+            let uialert = UIAlertController(title: title,message: message, preferredStyle: .alert)
 
-        uialert.addAction(UIAlertAction(title: "Update", style: UIAlertAction.Style.default) {
-          _ in
-          UIApplication.shared.open(release.downloadURL)
-        })
-        uialert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
-          _ in
-        })
+            uialert.addAction(UIAlertAction(title: "Update", style: UIAlertAction.Style.default) {
+              _ in
+              UIApplication.shared.open(release.downloadURL)
+            })
+            uialert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
+              _ in
+            })
 
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.present(uialert, animated: true, completion: nil)
-        }
-      })
-    result(nil)
+            if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                rootViewController.present(uialert, animated: true, completion: nil)
+            }
+          })
+          
+          result(nil)
+
+      case "isNewReleaseAvailable":
+          if (!AppDistribution.appDistribution().isTesterSignedIn) {
+              return
+          }
+          
+          AppDistribution.appDistribution().checkForUpdate(completion: { release, error in
+              if error != nil {
+                  // Handle error
+                  return
+              }
+
+              guard let release = release else {
+                result(false)
+                return
+              }
+              
+              result(true)
+          })
+          
+      case "downloadUpdate":
+          if (!AppDistribution.appDistribution().isTesterSignedIn) {
+              return
+          }
+          
+          AppDistribution.appDistribution().checkForUpdate(completion: { release, error in
+              if error != nil {
+                  // Handle error
+                  return
+              }
+
+              guard let release = release else {
+                return
+              }
+              
+              UIApplication.shared.open(release.downloadURL)
+              result(-1)
+          })
+          
+      case "isTesterSignedIn":
+          result(AppDistribution.appDistribution().isTesterSignedIn)
+          
+      case "signInTester":
+          AppDistribution.appDistribution().signInTester(completion: {error in
+              if error != nil {
+                  // Handle error
+                  return
+              }
+              
+              result(nil)
+          })
+          
+      case "signOutTester":
+          AppDistribution.appDistribution().signOutTester()
+          result(nil)
+          
+      default:
+          result(nil)
+    }
   }
 }
