@@ -11,7 +11,7 @@ flutter:
     implements: firebase_app_distribution
     platforms:
       android:
-        package: care.helloprimary
+        package: dev.fluttercommunity.firebase_app_distribution'
         pluginClass: FirebaseAppDistributionPlugin
         dartPluginClass: FirebaseAppDistributionAndroid
 

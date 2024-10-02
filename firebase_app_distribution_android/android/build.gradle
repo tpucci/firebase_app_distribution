@@ -1,4 +1,4 @@
-group 'care.helloprimary'
+group 'dev.fluttercommunity.firebase_app_distribution'
 version '1.0-SNAPSHOT'
 
 buildscript {
