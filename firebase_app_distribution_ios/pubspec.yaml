@@ -22,7 +22,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_app_distribution_platform_interface: 1.2.0
-  firebase_core: ^4.1.1
+  firebase_core: ^4.5.0
 
 dev_dependencies:
   flutter_test:
