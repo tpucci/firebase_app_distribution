@@ -1,6 +1,6 @@
 name: firebase_app_distribution_ios
 description: iOS implementation of the firebase_app_distribution plugin
-version: 1.2.0
+version: 1.2.1
 homepage: https://github.com/tpucci/firebase_app_distribution
 repository: https://github.com/tpucci/firebase_app_distribution
 
