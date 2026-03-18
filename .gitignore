@@ -43,6 +43,10 @@ GeneratedPluginRegistrant.swift
 build/
 .flutter-plugins
 
+# Swift Package Manager
+.build/
+.swiftpm/
+
 .project
 .classpath
 .settings
