@@ -1,3 +1,7 @@
+## 1.2.3
+
+ - Update ios min version
+
 ## 1.2.2
 
  - Update firebase_core dep
