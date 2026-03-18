@@ -4,8 +4,10 @@ version: 1.1.1
 homepage: https://github.com/tpucci/firebase_app_distribution
 repository: https://github.com/tpucci/firebase_app_distribution
 
+resolution: workspace
+
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.11.1 <4.0.0"
   flutter: ">=1.20.0"
 
 flutter:

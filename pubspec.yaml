@@ -1,7 +1,12 @@
-name: firebase_app_distribution_root
-
+name: _
+publish_to: none
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
   flutter: ">=1.20.0"
-dependencies:
-  melos: ^3.1.1
+dev_dependencies:
+  melos: ^6.3.3
+workspace:
+  - firebase_app_distribution
+  - firebase_app_distribution_android
+  - firebase_app_distribution_ios
+  - firebase_app_distribution_platform_interface
