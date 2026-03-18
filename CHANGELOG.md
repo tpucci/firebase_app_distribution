@@ -15,6 +15,34 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`firebase_app_distribution_ios` - `v1.2.2`](#firebase_app_distribution_ios---v122)
+ - [`firebase_app_distribution` - `v1.2.2`](#firebase_app_distribution---v122)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `firebase_app_distribution` - `v1.2.2`
+
+---
+
+#### `firebase_app_distribution_ios` - `v1.2.2`
+
+ - Update firebase_core dep
+
+
+## 2026-03-18
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`firebase_app_distribution_ios` - `v1.2.1`](#firebase_app_distribution_ios---v121)
  - [`firebase_app_distribution` - `v1.2.1`](#firebase_app_distribution---v121)
 

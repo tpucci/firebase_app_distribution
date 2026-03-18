@@ -1,3 +1,7 @@
+## 1.2.2
+
+ - Update firebase_core dep
+
 ## 1.2.1
 
  - Update firebase_core dependency to 4.1.1
