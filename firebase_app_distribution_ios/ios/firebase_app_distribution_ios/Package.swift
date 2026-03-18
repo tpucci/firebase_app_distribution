@@ -89,7 +89,7 @@ guard let shared_spm_version = Version("\(firebase_core_version_string)\(shared_
 let package = Package(
   name: "firebase_app_distribution_ios",
   platforms: [
-    .iOS("13.0"),
+    .iOS("15.0"),
   ],
   products: [
     .library(name: "firebase-app-distribution-ios", targets: ["firebase_app_distribution_ios"]),
