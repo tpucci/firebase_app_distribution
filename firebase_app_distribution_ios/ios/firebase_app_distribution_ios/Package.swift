@@ -82,7 +82,7 @@ guard let firebase_sdk_version = Version(firebase_sdk_version_string) else {
   fatalError("Invalid Firebase SDK version: \(firebase_sdk_version_string)")
 }
 
-guard let shared_spm_version = Version("\(firebase_core_version_string)\(shared_spm_tag)") else {
+guard let shared_spm_min_version = Version("\(firebase_core_version_string)\(shared_spm_tag)") else {
   fatalError("Invalid firebase_core version: \(firebase_core_version_string)\(shared_spm_tag)")
 }
 
@@ -96,7 +96,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/firebase/firebase-ios-sdk", from: firebase_sdk_version),
-    .package(url: "https://github.com/firebase/flutterfire", exact: shared_spm_version),
+    .package(url: "https://github.com/firebase/flutterfire", from: shared_spm_min_version),
   ],
   targets: [
     .target(
