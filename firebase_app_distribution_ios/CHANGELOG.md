@@ -1,3 +1,7 @@
+## 1.2.4
+
+ - **FIX**: update firebase_core version handling in Package.swift.
+
 ## 1.2.3
 
  - Update ios min version
