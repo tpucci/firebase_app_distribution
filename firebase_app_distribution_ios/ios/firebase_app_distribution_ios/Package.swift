@@ -32,7 +32,7 @@ func loadFirebaseSDKVersion() throws -> String {
   }
 }
 
-func loadPubspecVersions() throws -> (packageVersion: String, firebaseCoreVersion: String) {
+func loadPubspecVersion() throws -> String {
   let pubspecPath = NSString.path(withComponents: [
     packageDirectory,
     "..",
@@ -50,16 +50,7 @@ func loadPubspecVersions() throws -> (packageVersion: String, firebaseCoreVersio
       .trimmingCharacters(in: .whitespaces)
       .replacingOccurrences(of: "+", with: "-")
     packageVersion = packageVersion.replacingOccurrences(of: "^", with: "")
-
-    guard let firebaseCoreVersionLine = lines.first(where: { $0.contains("firebase_core:") }) else {
-      throw ConfigurationError
-        .invalidFormat("No firebase_core dependency version line found in pubspec.yaml")
-    }
-    var firebaseCoreVersion = firebaseCoreVersionLine.split(separator: ":")[1]
-      .trimmingCharacters(in: .whitespaces)
-    firebaseCoreVersion = firebaseCoreVersion.replacingOccurrences(of: "^", with: "")
-
-    return (packageVersion, firebaseCoreVersion)
+    return packageVersion
   } catch {
     throw ConfigurationError.fileNotFound("Error loading or parsing pubspec.yaml: \(error)")
   }
@@ -67,23 +58,16 @@ func loadPubspecVersions() throws -> (packageVersion: String, firebaseCoreVersio
 
 let library_version: String
 let firebase_sdk_version_string: String
-let firebase_core_version_string: String
-let shared_spm_tag = "-firebase-core-swift"
 
 do {
-  library_version = try loadPubspecVersions().packageVersion
+  library_version = try loadPubspecVersion()
   firebase_sdk_version_string = try loadFirebaseSDKVersion()
-  firebase_core_version_string = try loadPubspecVersions().firebaseCoreVersion
 } catch {
   fatalError("Failed to load configuration: \(error)")
 }
 
 guard let firebase_sdk_version = Version(firebase_sdk_version_string) else {
   fatalError("Invalid Firebase SDK version: \(firebase_sdk_version_string)")
-}
-
-guard let shared_spm_min_version = Version("\(firebase_core_version_string)\(shared_spm_tag)") else {
-  fatalError("Invalid firebase_core version: \(firebase_core_version_string)\(shared_spm_tag)")
 }
 
 let package = Package(
@@ -96,15 +80,12 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/firebase/firebase-ios-sdk", from: firebase_sdk_version),
-    .package(url: "https://github.com/firebase/flutterfire", from: shared_spm_min_version),
   ],
   targets: [
     .target(
       name: "firebase_app_distribution_ios",
       dependencies: [
         .product(name: "FirebaseAppDistribution-Beta", package: "firebase-ios-sdk"),
-        // Wrapper dependency
-        .product(name: "firebase-core-shared", package: "flutterfire"),
       ],
       resources: [
         // TODO: If your plugin requires a privacy manifest
