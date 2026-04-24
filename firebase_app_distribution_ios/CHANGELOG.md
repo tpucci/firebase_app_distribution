@@ -1,3 +1,7 @@
+## 1.2.5
+
+ - **FIX**(ios): remove unused flutterfire SPM dependency from Package.swift.
+
 ## 1.2.4
 
  - **FIX**: update firebase_core version handling in Package.swift.
