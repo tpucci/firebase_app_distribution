@@ -5,18 +5,23 @@ import androidx.annotation.NonNull
 import com.google.firebase.appdistribution.FirebaseAppDistribution
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-class FirebaseAppDistributionPlugin : FlutterPlugin, MethodCallHandler {
+class FirebaseAppDistributionPlugin : FlutterPlugin, MethodCallHandler, EventChannel.StreamHandler {
     private lateinit var channel: MethodChannel
+    private lateinit var progressChannel: EventChannel
     private var context: Context? = null
+    private var eventSink: EventChannel.EventSink? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "firebase_app_distribution_android")
         channel.setMethodCallHandler(this)
+        progressChannel = EventChannel(flutterPluginBinding.binaryMessenger, "firebase_app_distribution_android/download_progress")
+        progressChannel.setStreamHandler(this)
         context = flutterPluginBinding.applicationContext
     }
 
@@ -25,7 +30,43 @@ class FirebaseAppDistributionPlugin : FlutterPlugin, MethodCallHandler {
         when(call.method) {
             "updateIfNewReleaseAvailable" -> {
                 firebaseAppDistribution.updateIfNewReleaseAvailable()
-                result.success(null)
+                    .addOnProgressListener { progress ->
+                        emitProgress(progress.apkBytesDownloaded, progress.apkFileTotalBytes, progress.updateStatus.name)
+                    }
+                    .addOnSuccessListener {
+                        result.success(null)
+                    }
+                    .addOnFailureListener {
+                        result.error("UPDATE_FAILED", "Can not update app", "updateIfNewReleaseAvailable() failed with $it")
+                    }
+            }
+            "checkForNewRelease" -> {
+                firebaseAppDistribution.checkForNewRelease().addOnSuccessListener { release ->
+                    if (release == null) {
+                        result.success(null)
+                    } else {
+                        result.success(mapOf(
+                            "displayVersion" to release.displayVersion,
+                            "versionCode" to release.versionCode,
+                            "releaseNotes" to release.releaseNotes,
+                            "binaryType" to release.binaryType.name
+                        ))
+                    }
+                }.addOnFailureListener {
+                    result.error("CHECK_FAILED", "Can not check for new release", "checkForNewRelease() failed with $it")
+                }
+            }
+            "updateApp" -> {
+                firebaseAppDistribution.updateApp()
+                    .addOnProgressListener { progress ->
+                        emitProgress(progress.apkBytesDownloaded, progress.apkFileTotalBytes, progress.updateStatus.name)
+                    }
+                    .addOnSuccessListener {
+                        result.success(null)
+                    }
+                    .addOnFailureListener {
+                        result.error("UPDATE_FAILED", "Can not update app", "updateApp() failed with $it")
+                    }
             }
             "isNewReleaseAvailable" -> {
                 firebaseAppDistribution.checkForNewRelease().addOnSuccessListener { release ->
@@ -54,6 +95,24 @@ class FirebaseAppDistributionPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
+        progressChannel.setStreamHandler(null)
+        eventSink = null
         context = null
+    }
+
+    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        eventSink = events
+    }
+
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
+    }
+
+    private fun emitProgress(apkBytesDownloaded: Long, apkFileTotalBytes: Long, updateStatus: String) {
+        eventSink?.success(mapOf(
+            "apkBytesDownloaded" to apkBytesDownloaded,
+            "apkFileTotalBytes" to apkFileTotalBytes,
+            "updateStatus" to updateStatus
+        ))
     }
 }

@@ -10,6 +10,27 @@ Future<void> updateIfNewReleaseAvailable() {
   return _platform.updateIfNewReleaseAvailable();
 }
 
+/// Checks for a new release without showing the native update UI.
+///
+/// Use this to build your own "install available" UI, then call [updateApp]
+/// after the user accepts the update.
+Future<AppDistributionRelease?> checkForNewRelease() {
+  return _platform.checkForNewRelease();
+}
+
+/// Starts installing the release previously returned by [checkForNewRelease].
+Future<void> updateApp() {
+  return _platform.updateApp();
+}
+
+/// Emits download progress updates from the native SDK.
+///
+/// Android emits progress while downloading APK updates. iOS does not expose
+/// native download progress because installation is handed off to the system.
+Stream<AppDistributionDownloadProgress> get downloadProgress {
+  return _platform.downloadProgress;
+}
+
 /// Checks if a new release is available.
 Future<bool> isNewReleaseAvailable() {
   return _platform.isNewReleaseAvailable();

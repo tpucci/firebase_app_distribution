@@ -8,6 +8,12 @@ class FirebaseAppDistributionIOS extends FirebaseAppDistributionPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('firebase_app_distribution_ios');
 
+  /// The event channel used to receive download progress updates.
+  @visibleForTesting
+  final eventChannel = const EventChannel(
+    'firebase_app_distribution_ios/download_progress',
+  );
+
   /// Registers this class as the default instance of [FirebaseAppDistributionPlatform]
   static void registerWith() {
     FirebaseAppDistributionPlatform.instance = FirebaseAppDistributionIOS();
@@ -16,6 +22,28 @@ class FirebaseAppDistributionIOS extends FirebaseAppDistributionPlatform {
   @override
   Future<void> updateIfNewReleaseAvailable() async {
     return methodChannel.invokeMethod<void>('updateIfNewReleaseAvailable');
+  }
+
+  @override
+  Future<AppDistributionRelease?> checkForNewRelease() async {
+    final release = await methodChannel.invokeMapMethod<Object?, Object?>(
+      'checkForNewRelease',
+    );
+    return release == null ? null : AppDistributionRelease.fromMap(release);
+  }
+
+  @override
+  Future<void> updateApp() {
+    return methodChannel.invokeMethod<void>('updateApp');
+  }
+
+  @override
+  Stream<AppDistributionDownloadProgress> get downloadProgress {
+    return eventChannel.receiveBroadcastStream().map(
+      (event) => AppDistributionDownloadProgress.fromMap(
+        event! as Map<Object?, Object?>,
+      ),
+    );
   }
 
   @override
