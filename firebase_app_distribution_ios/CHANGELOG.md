@@ -1,3 +1,7 @@
+## 1.3.0
+
+ - **FEAT**: add support for checking and updating releases with download progress.
+
 ## 1.2.5
 
  - **FIX**(ios): remove unused flutterfire SPM dependency from Package.swift.

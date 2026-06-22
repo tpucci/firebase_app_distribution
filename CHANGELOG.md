@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-06-22
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`firebase_app_distribution` - `v1.3.0`](#firebase_app_distribution---v130)
+ - [`firebase_app_distribution_android` - `v1.3.0`](#firebase_app_distribution_android---v130)
+ - [`firebase_app_distribution_ios` - `v1.3.0`](#firebase_app_distribution_ios---v130)
+ - [`firebase_app_distribution_platform_interface` - `v1.3.0`](#firebase_app_distribution_platform_interface---v130)
+
+---
+
+#### `firebase_app_distribution` - `v1.3.0`
+
+ - **FEAT**: add support for checking and updating releases with download progress.
+
+#### `firebase_app_distribution_android` - `v1.3.0`
+
+ - **FEAT**: add support for checking and updating releases with download progress.
+
+#### `firebase_app_distribution_ios` - `v1.3.0`
+
+ - **FEAT**: add support for checking and updating releases with download progress.
+
+#### `firebase_app_distribution_platform_interface` - `v1.3.0`
+
+ - **FEAT**: add support for checking and updating releases with download progress.
+
+
 ## 2026-04-24
 
 ### Changes
