@@ -32,7 +32,7 @@ if (agpMajor < 9) {
 android {
     namespace = "dev.fluttercommunity.firebase_app_distribution"
 
-    compileSdkVersion 30
+    compileSdkVersion flutter.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
