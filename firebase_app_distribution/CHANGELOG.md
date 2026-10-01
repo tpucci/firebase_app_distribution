@@ -1,3 +1,7 @@
+## 1.3.1
+
+ - Update a dependency to the latest release.
+
 ## 1.3.0
 
  - **FEAT**: add support for checking and updating releases with download progress.

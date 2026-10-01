@@ -1,3 +1,9 @@
+## 1.3.1
+
+ - **FIX**(android): respect android.builtInKotlin and keep old KGP path compiling.
+ - **FIX**(android): bump compileSdk to flutter.compileSdkVersion.
+ - **FIX**(android): support AGP 9's built-in Kotlin.
+
 ## 1.3.0
 
  - **FEAT**: add support for checking and updating releases with download progress.
